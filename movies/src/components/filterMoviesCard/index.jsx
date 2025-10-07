@@ -39,10 +39,11 @@ export default function FilterMoviesCard(props) {
       // eslint-disable-next-line
   }, []);
 
-  const handleChange = (e, type, value) => {
+    const handleChange = (e, type, value) => {
     e.preventDefault()
-    // Completed later
-  };
+    props.onUserInput(type, value)   // NEW
+  }
+
   const handleTextChange = e => {
     handleChange(e, "name", e.target.value)
   }
@@ -63,27 +64,24 @@ export default function FilterMoviesCard(props) {
           <SearchIcon fontSize="large" />
           Filter the movies.
         </Typography>
-        <TextField
-          sx={{...formControl}}
-          id="filled-search"
-          label="Search field"
-          type="search"
-          variant="filled"
-        />
+            <TextField
+      sx={{...formControl}}
+      id="filled-search"
+      label="Search field"
+      type="search"
+      variant="filled"
+      value={props.titleFilter}
+      onChange={handleTextChange}
+    />
         <FormControl sx={{...formControl}}>
           <InputLabel id="genre-label">Genre</InputLabel>
-          <Select
-            labelId="genre-label"
-            id="genre-select"
-          >
-            {genres.map((genre) => {
-              return (
-                <MenuItem key={genre.id} value={genre.id}>
-                  {genre.name}
-                </MenuItem>
-              );
-            })}
-          </Select>
+            <Select
+                labelId="genre-label"
+                id="genre-select"
+                defaultValue=""
+                value={props.genreFilter}
+                onChange={handleGenreChange}>
+            </Select>
         </FormControl>
       </CardContent>
       <CardMedia
